@@ -1,4 +1,5 @@
 <?php
+$title="Pagina dos Anúncios Favoritos";
 include('config.php');
 require(__DIR__ . '/inc/header.php');
 

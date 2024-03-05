@@ -1,4 +1,5 @@
 <?php
+$title="Detalhes do anuncio";
 include('config.php');
 require(__DIR__ . '/inc/header.php');
 

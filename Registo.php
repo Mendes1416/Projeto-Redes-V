@@ -1,5 +1,6 @@
 <?php
-// session_start();
+$title="Registo do Aluno";
+session_start();
 require(__DIR__ . '/inc/header.php');
 require_once "config.php";
 

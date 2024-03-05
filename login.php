@@ -1,4 +1,5 @@
 <?php
+$title="Login do Aluno";
 require(__DIR__ . '/inc/header.php');
 session_start();
 require_once "config.php";
@@ -75,6 +76,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
+                <img src="img/Login.jpg" class="img-fluid mx-auto d-block mb-3" alt="Imagem de Login" style="width: 50%;">
+                <!-- <img src="img/Login.jpg" class="img-fluid mb-3" alt="Imagem de Login" style="width: 50%;"> -->
                     <h2 class="text-center">Login</h2>
                     <p class="text-center">Por favor, preencha os campos para fazer o login.</p>
                     <?php 

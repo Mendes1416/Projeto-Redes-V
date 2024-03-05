@@ -1,4 +1,5 @@
 <?php
+$title="Login da Empresa";
 require(__DIR__ . '/inc/header.php');
 ?>
 

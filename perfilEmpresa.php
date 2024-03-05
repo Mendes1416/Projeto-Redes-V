@@ -1,4 +1,5 @@
 <?php
+$title="Editar o perfil da Empresa";
 session_start();
 require(__DIR__ . '/inc/header.php');
 include('config.php');

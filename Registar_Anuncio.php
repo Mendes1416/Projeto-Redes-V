@@ -1,4 +1,8 @@
 <?php
+require(__DIR__ . '/inc/header.php');
+?>
+
+<?php
 // Verificar se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Conexão com o banco de dados (substitua as credenciais conforme necessário)
@@ -21,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bindParam(':carreira', $_POST['carreira']);
         $stmt->bindParam(':organismo', $_POST['organismo']);
         $stmt->bindParam(':data_limite', $_POST['data_limite']);
-        $stmt->bindParam(':descricao', $_POST['descricao']); // Corrigido para :descricao
+        $stmt->bindParam(':descricao', $_POST['descricao']);
 
         // Executar a declaração
         $stmt->execute();
@@ -36,35 +40,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<div class="container text-center">
-    <div class="mx-auto">
-        <h2>Registrar Novo Anúncio</h2>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label for="codigo">Código:</label>
-                <input type="text" name="codigo" class="form-control" required>
+
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center">Registro do Anúncio</h2>
+                        <form action="validar_anuncio.php" method="post" id="form-anuncio">
+                            <div class="form-group">
+                                <label for="codigo">Código:</label>
+                                <input type="text" name="codigo" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tipo_de_oferta">Tipo de Oferta:</label>
+                                <input type="text" name="tipo_de_oferta" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="carreira">Carreira:</label>
+                                <input type="text" name="carreira" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="organismo">Organismo:</label>
+                                <input type="text" name="organismo" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="data_limite">Data Limite:</label>
+                                <input type="date" name="data_limite" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="descricao">Descrição:</label>
+                                <textarea name="descricao" class="form-control" required></textarea>
+                            </div>
+                            <br>
+                            <div class="form-group text-center">
+                                <button type="submit" class="btn btn-primary">Registrar Anúncio</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="tipo_de_oferta">Tipo de Oferta:</label>
-                <input type="text" name="tipo_de_oferta" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="carreira">Carreira:</label>
-                <input type="text" name="carreira" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="organismo">Organismo:</label>
-                <input type="text" name="organismo" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="data_limite">Data Limite:</label>
-                <input type="date" name="data_limite" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="descricao">Descrição:</label>
-                <textarea name="descricao" class="form-control" required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Registrar Anúncio</button>
-        </form>
+        </div>
     </div>
-</div>
+    <?php require(__DIR__ . '/inc/footer.php'); ?>
+    
+</body>
+</body>

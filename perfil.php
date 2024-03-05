@@ -1,4 +1,5 @@
 <?php
+$title="Editar o perfil";
 session_start();
 require(__DIR__ . '/inc/header.php');
 include('config.php');
@@ -62,6 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label for="curso">Curso:</label>
                                 <input type="text" class="form-control" id="curso" name="curso" value="<?php echo $usuario['curso']; ?>" required>
                             </div>
+                            <br>
                             <button type="submit" class="btn btn-primary btn-block">Salvar Alterações</button>
                         </form>
                     </div>
