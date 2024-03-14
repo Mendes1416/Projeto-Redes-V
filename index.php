@@ -66,7 +66,7 @@ try {
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Página de Suporte</a></li>
                         <li><a class="dropdown-item" href="#">FAQ</a></li>
-                        <li><a class="dropdown-item" href="#">Contato</a></li>
+                        <li><a class="dropdown-item" href="contacto.php">Contato</a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
