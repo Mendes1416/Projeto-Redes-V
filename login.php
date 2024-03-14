@@ -1,7 +1,7 @@
 <?php
 $title="Login do Aluno";
 require(__DIR__ . '/inc/header.php');
-session_start();
+require(__DIR__ . '/inc/Navar.php');
 require_once "config.php";
 
 
@@ -16,7 +16,7 @@ $username_err = $password_err = $login_err = "";
 if($_SERVER["REQUEST_METHOD"] == "POST"){ 
 
     if(empty(trim($_POST["username"]))){
-        $username_err = "Por favor, insira o nome do  utilizador ou email.";
+        $username_err = "Por favor, insira o nome do utilizador ou email.";
     } else{
         $username = trim($_POST["username"]);
     }
@@ -28,7 +28,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty($username_err) && empty($password_err)){
-        $sql = "SELECT id, username, password FROM users WHERE username = :username OR email = :email";
+        $sql = "SELECT id, username, password, profile_picture FROM users WHERE username = :username OR email = :email";
         $pdo=connect_db();
         if($stmt = $pdo->prepare($sql)){
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
@@ -48,6 +48,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["id"] = $id;
                             $_SESSION["username"] = $username;
+                            $_SESSION["profile_picture"] = $row["profile_picture"]; // Armazena o caminho da foto na sessão
                             $_SESSION['empresa'] = false;
                             header("location: index.php");
                             exit;
@@ -64,20 +65,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             unset($stmt);
         }
     }
-
     unset($pdo);
-
 }
-
-    
 ?>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                <img src="img/Login.jpg" class="img-fluid mx-auto d-block mb-3" alt="Imagem de Login" style="width: 50%;">
-                <!-- <img src="img/Login.jpg" class="img-fluid mb-3" alt="Imagem de Login" style="width: 50%;"> -->
+                    <img src="img/Login.jpg" class="img-fluid mx-auto d-block mb-3" alt="Imagem de Login" style="width: 50%;">
                     <h2 class="text-center">Login</h2>
                     <p class="text-center">Por favor, preencha os campos para fazer o login.</p>
                     <?php 

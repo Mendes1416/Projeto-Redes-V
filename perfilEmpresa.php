@@ -1,16 +1,16 @@
 <?php
-$title="Editar o perfil da Empresa";
+$title = "Editar o perfil da Empresa";
 session_start();
 require(__DIR__ . '/inc/header.php');
 include('config.php');
 
 // Obtém os dados do usuário
-$NIF = $_SESSION["nif"];
+$nif= $_SESSION["NIF"];
 
 $conn = connect_db();
-$sql = "SELECT * FROM empresa WHERE NIF='$NIF'";
+$sql = "SELECT * FROM empresa WHERE NIF='$nif'";
 $result = $conn->query($sql);
-$empresa = $result->fetch();
+$nif = $result->fetch();
 // Verifica se o formulário foi enviado
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Recebe os dados do formulário
@@ -41,11 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit(); // Certifica-se de que o código não continua a ser executado após o redirecionamento
         } else {
             // Se houver um erro ao executar a consulta de atualização, exibe o erro
-            echo "Erro ao atualizar perfil: " , $conn->errorCode();
+            echo "Erro ao atualizar perfil: ", $conn->errorCode();
         }
     }
 }
 ?>
+
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -54,9 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="card-body">
                         <h2 class="text-center">Editar Perfil</h2>
                         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <input type="hidden" name="nif" value="<?php echo $nif['NIF']; ?>">
                             <div class="form-group">
                                 <label for="nome">Nome:</label>
-                                <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $NIF['NOME']; ?>" required>
+                                <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $nif['NOME']; ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password:</label>
@@ -64,28 +66,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <div class="form-group">
                                 <label for="cae">CAE:</label>
-                                <input type="text" class="form-control" id="cae" name="cae" value="<?php echo $empresa['CAE']; ?>" required>
+                                <input type="text" class="form-control" id="cae" name="cae" value="<?php echo $nif['CAE']; ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="email">Email:</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $empresa['Email']; ?>" required>
+                                <input type="email" class="form-control" id="email" name="email" value="<?php echo $nif['Email']; ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="morada">Morada:</label>
-                                <input type="text" class="form-control" id="morada" name="morada" value="<?php echo $empresa['Morada']; ?>" required>
+                                <input type="text" class="form-control" id="morada" name="morada" value="<?php echo $nif['Morada']; ?>" required>
                             </div>
                             <div class="form-group">
                                 <label for="cod_postal">Código Postal:</label>
-                                <input type="text" class="form-control" id="cod_postal" name="cod_postal" value="<?php echo $empresa['Cod_postal']; ?>" required>
+                                <input type="text" class="form-control" id="cod_postal" name="cod_postal" value="<?php echo $nif['Cod_postal']; ?>" required>
                             </div>
                             <div class="form-group">
-                                <label for="nif">NIF:</label>
-                                <input type="text"  class="form-control" name="nif" value="<?php echo $nif; ?>" readonly>
+                                <label for="Nif">NIF:</label>
+                                <input type="text" class="form-control" name="nif" value="<?php echo $nif['NIF']; ?>" readonly>
 
                             </div>
                             <div class="form-group">
                                 <label for="localidade">Localidade:</label>
-                                <input type="text" class="form-control" id="localidade" name="localidade" value="<?php echo $NIF['Localidade']; ?>" required>
+                                <input type="text" class="form-control" id="localidade" name="localidade" value="<?php echo $nif['Localidade']; ?>" required>
                             </div>
                             <br>
                             <button type="submit" class="btn btn-primary btn-block">Salvar Alterações</button>
@@ -95,5 +97,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         </div>
     </div>
-     
+
 </body>

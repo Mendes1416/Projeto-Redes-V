@@ -1,7 +1,8 @@
 <?php
-$title="Detalhes do anuncio";
+$title = "Detalhes do anuncio";
 include('config.php');
 require(__DIR__ . '/inc/header.php');
+require(__DIR__ . '/inc/Navar.php');
 
 // Obtendo a conexão com o banco de dados
 $pdo = connect_db();
@@ -13,19 +14,18 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':id', $anuncio_id);
     $stmt->execute();
-    
+
     if ($stmt->rowCount() == 1) {
         $anuncio = $stmt->fetch(PDO::FETCH_ASSOC);
     } else {
         header("Location: index.php");
         exit;
     }
-} else {             
+} else {
     header("Location: index.php");
     exit;
 }
 ?>
-
 
 <body>
     <div class="container mt-5">
@@ -67,9 +67,10 @@ if (isset($_GET['id']) && !empty($_GET['id'])) {
         <div class="text-center">
             <!-- Botão para adicionar aos favoritos -->
             <a href="Favoritos.php?anuncio_id=<?php echo $anuncio['id']; ?>" class="btn btn-primary">Adicionar aos Favoritos</a>
+            <!-- Botão para editar o anúncio -->
+            <a href="EditarAnuncio.php?id=<?php echo $anuncio['id']; ?>" class="btn btn-secondary">Editar Anúncio</a>
         </div>
     </div>
 </body>
-</html>
 
 </html>

@@ -5,6 +5,7 @@ $username = "root";
 $password = '';
 $dbname = "site";
 
+
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
     // Defina o modo de erro do PDO como exceção

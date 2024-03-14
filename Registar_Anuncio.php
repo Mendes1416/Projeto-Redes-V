@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center">Registro do Anúncio</h2>
+                        <h2 class="text-center">Registo do Anúncio</h2>
                         <form action="validar_anuncio.php" method="post" id="form-anuncio">
                             <div class="form-group">
                                 <label for="codigo">Código:</label>
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <br>
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">Registrar Anúncio</button>
+                                <button type="submit" class="btn btn-primary">Registar Anúncio</button>
                             </div>
                         </form>
                     </div>

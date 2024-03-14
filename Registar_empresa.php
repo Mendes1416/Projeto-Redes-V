@@ -1,15 +1,7 @@
 <?php
 require(__DIR__ . '/inc/header.php');
+require(__DIR__ . '/inc/Navar.php');
 ?>
-
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Registo da Empresa</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-</head>
 
 <body>
     <div class="container mt-5">

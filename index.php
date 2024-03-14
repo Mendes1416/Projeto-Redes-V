@@ -74,8 +74,9 @@ try {
                     </ul>
                 </li>
             </ul>
+        
+      <?php
 
-            <?php
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     // Se estiver logado, exiba apenas o nome de usuário com um link para a página do usuário
 ?>

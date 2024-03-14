@@ -28,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Obtém os dados do formulário
         $codigo = $_POST['codigo'];
-        $tipo_oferta = $_POST['tipo_oferta'];
-        $userId = $_SESSION['user_id']; // Altere para o nome real da coluna que armazena o ID do usuário na tabela
+        $tipo_oferta = $_POST['tipo_de_oferta'];
+        $userId = $_SESSION['id']; // Altere para o nome real da coluna que armazena o ID do usuário na tabela
 
         // Executa a consulta
         $stmt->execute([$codigo, $tipo_oferta, $userId]);
