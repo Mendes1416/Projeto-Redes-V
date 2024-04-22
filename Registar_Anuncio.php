@@ -1,6 +1,15 @@
 <?php
 require(__DIR__ . '/inc/header.php');
+require(__DIR__.'/inc/Navar.php');
+
+// Verifica se o usuário está logado
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
+    // Se não estiver logado, redireciona para a página de login
+    header("Location: LoginEmpresa.php");
+    exit();
+}
 ?>
+
 
 <?php
 // Verificar se o formulário foi submetido
@@ -39,8 +48,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = null;
 }
 ?>
-
-
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -55,7 +62,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="form-group">
                                 <label for="tipo_de_oferta">Tipo de Oferta:</label>
-                                <input type="text" name="tipo_de_oferta" class="form-control" required>
+                                <select name="tipo_de_oferta" class="form-control" required>
+                                    <option value ="Seleciona o Tipo de oferta">Seleciona a opção...</option>
+                                    <option value="Full-Time">Full-Time</option>
+                                    <option value="Part-Time">Part-Time</option>
+                                    <option value="Estágio">Estágio</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label for="carreira">Carreira:</label>

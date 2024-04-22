@@ -1,7 +1,8 @@
 <?php
 $title="Editar o perfil";
-session_start();
+
 require(__DIR__ . '/inc/header.php');
+require(__DIR__ . '/inc/Navar.php');
 include('config.php');
 
 // Obtém os dados do usuário
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit(); // Certifica-se de que o código não continua a ser executado após o redirecionamento
         } else {
             // Se houver um erro ao executar a consulta de atualização, exibe o erro
-            //echo "Erro ao atualizar perfil: " , $conn->error;
+            // echo "Erro ao atualizar perfil: " , $conn->error;
         }
     }
 }

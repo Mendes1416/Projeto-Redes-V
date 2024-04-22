@@ -3,7 +3,7 @@ require(__DIR__ . '/inc/header.php');
 // Inicialize a sessão
 session_start();
 
-// Verifique se o usuário está logado, caso contrário, redirecione para a página de login
+// Verifique se o utilizador está logado, caso contrário, redirecione para a página de login
 
 // Incluir arquivo de configuração
 require_once "config.php";
@@ -15,9 +15,9 @@ $username_err = $new_password_err = $confirm_password_err = "";
 // Processando dados do formulário quando o formulário é enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Validar nome de usuário
+    // Validar nome de utilizador
     if (empty(trim($_POST["username"]))) {
-        $username_err = "Por favor, insira o nome de usuário.";
+        $username_err = "Por favor, insira o nome de utilizador.";
     } else {
         $username = trim($_POST["username"]);
     }
@@ -78,12 +78,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="wrapper">
+                <div class="card-body">
                     <h2 class="text-center">Redefinir senha</h2>
-                    <p class="text-center">Por favor, preencha este formulário para redefinir sua senha.</p>
+                    <p class="text-center">Por favor, preencha este formulário para redefinir a sua senha.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
-                            <label>Nome de usuário</label>
+                            <label>Nome de utilizador</label>
                             <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                             <span class="invalid-feedback"><?php echo $username_err; ?></span>
                         </div>
@@ -108,3 +108,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </div>
+</div>
+
+<?php
+require __DIR__ . '/inc/footer.php';
+?>

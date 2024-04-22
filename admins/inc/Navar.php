@@ -1,18 +1,14 @@
 <?php
 $title = "Página Inicial";
-require(__DIR__ . '/inc/header.php');
-define("NAME_DIRECORY_UPLOAD", "upload/");
 
 // Inicie a sessão
 session_start();
-
-$entrou = isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true;
 
 // Conexão com o banco de dados usando PDO (substitua pelos seus detalhes de conexão)
 $servername = "localhost";
 $username = "root";
 $password = '';
-$dbname = "SITE";
+$dbname = "site";
 
 try {
     $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
@@ -45,7 +41,7 @@ try {
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"> <strong>Esen Emprego</strong></a>
+        <a class="navbar-brand" href="index.php"><strong>Esen Emprego</strong></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -76,15 +72,6 @@ try {
                         <li><a class="dropdown-item" href="#">Sobre</a></li>
                     </ul>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Admin
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="./admins/RegistarAdmin.php">Registar Admin</a></li>
-                        <li><a class="dropdown-item" href="./admins/LoginAdmin.php">Login Admin</a></li>
-                    </ul>
-                </li>
             </ul>
 
             <?php
@@ -93,23 +80,10 @@ try {
                 // Se estiver logado, exiba apenas o nome de usuário com um link para a página do usuário
             ?>
                 <div class="dropdown">
-
-                    <?php
-                    
-                    if (empty($_SESSION["photo"])) $photo = "";
-                    else $photo = 'uploads/' . $_SESSION["photo"];
-                    if ($entrou === false) {
-                        echo '<a href="login.php"><i class="fas fa-sign-in-alt"></i>Login</a>';
-                    } else {
-            
-                        echo ' <img src="' . $photo . '" width="60" height="38"></a>';
-                    }
-                    ?>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                        <?php echo  $_SESSION['username']; ?>
+                        <?php echo $_SESSION['username']; ?>
                     </button>
-
-                    <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                    <div class="dropdown-menu" aria-labelledby="loginDropdown">          
                         <a class="dropdown-item" href="<?= $_SESSION['empresa'] ? 'perfilEmpresa.php' : 'perfil.php' ?>">Perfil</a>
                         <a class="dropdown-item" href="Favoritos.php"> Favoritos</a>
                         <a class="dropdown-item" href="logout.php">Sair</a>
@@ -118,9 +92,8 @@ try {
             <?php } else {
                 // Se não estiver logado, exiba o dropdown de login
             ?>
-
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="true">
                         Login
                     </button>
                     <div class="dropdown-menu" aria-labelledby="loginDropdown">
@@ -138,53 +111,3 @@ try {
         </div>
     </div>
 </nav>
-
-<div class="container text-center">
-    <div class="mx-auto">
-        <h2>Pesquisar Ofertas de Emprego</h2>
-        <form action="" method="get">
-            <input type="text" name="search" class="form-control" placeholder="Pesquisar ofertas...">
-            <button type="submit" class="btn btn-primary">Pesquisar</button>
-        </form>
-        <br>
-        <table class="table table-dark table-striped-columns">
-            <thead>
-                <tr>
-                    <th scope="col">Código</th>
-                    <th scope="col">Tipo de Oferta</th>
-                    <th scope="col">Carreira</th>
-                    <th scope="col">Organismo</th>
-                    <th scope="col">Data Limite</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                try {
-                    // Verificar se há resultados da consulta
-                    if ($result->rowCount() > 0) {
-                        // Iterar sobre os resultados e preencher as linhas da tabela
-                        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-                            echo '<tr>';
-                            echo '<th scope="row">' . $row['codigo'] . '</th>';
-                            echo '<td><a class="link-light"  href="detalhes_anuncio.php?id=' . $row['id'] . '">' . $row['tipo_de_oferta'] . '</a></td>';
-                            echo '<td>' . $row['carreira'] . '</td>';
-                            echo '<td>' . $row['organismo'] . '</td>';
-                            echo '<td>' . $row['data_limite'] . '</td>';
-                            echo '</tr>';
-                        }
-                    } else {
-                        // Se não houver resultados, exibir uma mensagem
-                        echo '<tr><td colspan="6">Sem anúncios disponíveis.</td></tr>';
-                    }
-                } catch (PDOException $e) {
-                    echo "Erro na consulta: " . $e->getMessage();
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-<?php
-require __DIR__ . '/inc/footer.php';
-?>

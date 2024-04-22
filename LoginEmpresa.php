@@ -1,6 +1,7 @@
 <?php
 $title="Login da Empresa";
 require(__DIR__ . '/inc/header.php');
+// require(__DIR__ . '/inc/Navar.php');
 ?>
 
   

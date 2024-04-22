@@ -23,19 +23,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Defina o modo de erro do PDO como exceção
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Prepara a consulta para inserir os dados na tabela de anúncios
-        $stmt = $conn->prepare("INSERT INTO anuncios (codigo, tipo_oferta, user_id) VALUES (?, ?, ?)");
-
         // Obtém os dados do formulário
         $codigo = $_POST['codigo'];
-        $tipo_oferta = $_POST['tipo_de_oferta'];
-        $userId = $_SESSION['id']; // Altere para o nome real da coluna que armazena o ID do usuário na tabela
+        $tipo_de_oferta = $_POST['tipo_de_oferta'];
+        $carreira = $_POST["carreira"];
+        $organismo = $_POST["organismo"];
+        $data_limite = $_POST["data_limite"];
+        $descricao = $_POST["descricao"];
+
+        // Prepara a consulta para inserir os dados na tabela de anúncios
+        $stmt = $conn->prepare("INSERT INTO anuncios (codigo, tipo_de_oferta, carreira, organismo, data_limite, Descricao)
+        VALUES (:codigo, :tipo_de_oferta, :carreira, :organismo, :data_limite, :descricao)");
 
         // Executa a consulta
-        $stmt->execute([$codigo, $tipo_oferta, $userId]);
+        $stmt->execute([
+            ':codigo' => $codigo,
+            ':tipo_de_oferta' => $tipo_de_oferta,
+            ':carreira' => $carreira,
+            ':organismo' => $organismo,
+            ':data_limite' => $data_limite,
+            ':descricao' => $descricao
+        ]);
 
         echo "Anúncio adicionado com sucesso.";
-
     } catch (PDOException $e) {
         echo "Erro ao adicionar anúncio: " . $e->getMessage();
     }

@@ -4,7 +4,7 @@ include('config.php');
 // Verificar se o formulário foi submetido
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar se todos os campos do formulário foram preenchidos
-    if (isset($_POST['anuncio_id'], $_POST['codigo'], $_POST['tipo_de_oferta'], $_POST['carreira'], $_POST['organismo'], $_POST['data_limite'], $_POST['descricao'])) {
+    if (isset($_POST['id'], $_POST['codigo'], $_POST['tipo_de_oferta'], $_POST['carreira'], $_POST['organismo'], $_POST['data_limite'], $_POST['descricao'])) {
         // Obtendo os dados do formulário
         $anuncio_id = $_POST['anuncio_id'];
         $codigo = $_POST['codigo'];

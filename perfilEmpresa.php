@@ -1,14 +1,14 @@
 <?php
 $title = "Editar o perfil da Empresa";
-session_start();
 require(__DIR__ . '/inc/header.php');
+require(__DIR__ . '/inc/Navar.php');
 include('config.php');
 
 // Obtém os dados do usuário
-$nif= $_SESSION["NIF"];
+$NIF = $_SESSION["nif"];
 
 $conn = connect_db();
-$sql = "SELECT * FROM empresa WHERE NIF='$nif'";
+$sql = "SELECT * FROM empresa WHERE NIF='$NIF'";
 $result = $conn->query($sql);
 $nif = $result->fetch();
 // Verifica se o formulário foi enviado
@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cod_postal = $_POST['cod_postal'];
     $localidade = $_POST['localidade'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
 
     // Verifica se o NIF já existe
     $check_nif_sql = "SELECT COUNT(*) as count FROM empresa WHERE NIF='$nif' AND NIF != '$nif'";
@@ -46,16 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center">Editar Perfil</h2>
+                        <h2 class="text-center">Editar Perfil Empresa</h2>
                         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="hidden" name="nif" value="<?php echo $nif['NIF']; ?>">
+                            <input type="hidden" name="NIF" value="<?php echo $nif['NIF']; ?>">
                             <div class="form-group">
                                 <label for="nome">Nome:</label>
                                 <input type="text" class="form-control" id="nome" name="nome" value="<?php echo $nif['NOME']; ?>" required>
@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                             <div class="form-group">
                                 <label for="Nif">NIF:</label>
-                                <input type="text" class="form-control" name="nif" value="<?php echo $nif['NIF']; ?>" readonly>
+                                <input type="text" class="form-control" name="NIF" value="<?php echo $NIF['nif']; ?>" readonly>
 
                             </div>
                             <div class="form-group">
