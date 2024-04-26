@@ -1,4 +1,18 @@
 <?php
+session_start(); // Inicia a sessão
+
+ 
+// Verifica se 'nome_admin' está definido na sessão
+if (!isset($_SESSION['nome'])) {
+    // Se não estiver definido, redireciona para a página de login ou faça alguma outra ação adequada
+    // header("Location: login.php"); // Redireciona para a página de login
+    exit(); // Encerra o script para garantir que nada mais seja executado
+}
+
+// Restante do seu código continua aqui...
+
+
+
 // Conexão com o banco de dados
 $servername = "localhost";
 $username = "root";
@@ -30,7 +44,7 @@ $result_anuncios = $conn->query($sql_anuncios);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Dashboard Admin </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- Adicionando Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -38,9 +52,37 @@ $result_anuncios = $conn->query($sql_anuncios);
 
 <body>
 
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Bem-vindo, <?php echo $_SESSION['nome']; ?></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Contas</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sair
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mt-5">
         <div class="container">
-            <h2>Contas de Usuários</h2>
+            <h2>Contas dos Utilizadores</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -72,7 +114,7 @@ $result_anuncios = $conn->query($sql_anuncios);
         </div>
 
         <div class="container">
-            <h2>Empresas Registradas</h2>
+            <h2>Empresas Registadas</h2>
             <table class="table">
                 <thead>
                     <tr>
@@ -92,10 +134,9 @@ $result_anuncios = $conn->query($sql_anuncios);
                             echo "<td>" . $row["nome"] . "</td>";
                             echo "<td>" . $row["Descricao"] . "</td>";
                             echo "<td>" . $row["Email"] . "</td>";
-                            // Adicionando ícone de lápis para editar perfil
+                            // Removendo o ícone de lápis para editar perfil
                             echo "<td>
                                 <a href='delete_empresa.php?NIF=" . $row["NIF"] . "'>Excluir</a>
-                                <a href='javascript:void(0);' onclick='openEditPopup(" . $row["NIF"] . ")'><i class='bi bi-pencil'></i></a>
                               </td>";
                             echo "</tr>";
                         }
@@ -146,83 +187,9 @@ $result_anuncios = $conn->query($sql_anuncios);
         </div>
     </div>
 
-    <!-- Modal de Edição da Empresa -->
-    <div class="modal fade" id="editEmpresaModal" tabindex="-1" aria-labelledby="editEmpresaModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editEmpresaModalLabel">Editar Empresa</h5>
-                </div>
-                <div class="modal-body">
-                    <form id="editEmpresaForm" method="post" action="update_empresa.php">
-                        <input type="hidden" id="editNIF" name="NIF">
-                        <div class="form-group">
-                            <label for="editNome">Nome da Empresa:</label>
-                            <input type="text" class="form-control" id="editNome" name="nome">
-                        </div>
-                        <div class="form-group">
-                            <label for="editDescricao">Descrição:</label>
-                            <textarea class="form-control" id="editDescricao" name="descricao"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="editEmail">Email:</label>
-                            <input type="email" class="form-control" id="editEmail" name="email">
-                        </div>
-                        <!-- Adicione outros campos conforme necessário -->
-                        <button type="submit" class="btn btn-primary">Salvar Alterações</button>
-                        <button  type="close" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Script para abrir o pop-up -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        function openEditPopup(NIF) {
-            // Requisição AJAX para buscar os detalhes da empresa pelo NIF e preencher o formulário
-            $.ajax({
-                url: 'get_empresa_details.php',
-                type: 'post',
-                data: {
-                    NIF: NIF
-                },
-                dataType: 'json',
-                success: function(response) {
-                    $('#editNIF').val(response.NIF);
-                    $('#editNome').val(response.nome);
-                    $('#editDescricao').val(response.Descricao);
-                    $('#editEmail').val(response.Email);
-                    // Preencha outros campos conforme necessário
-                    $('#editEmpresaModal').modal('show');
-                }
-            });
-        }
-
-        // Função para atualizar os dados da empresa
-        $('#editEmpresaForm').submit(function(e) {
-            e.preventDefault(); // Impede o envio do formulário padrão
-            var formData = $(this).serialize(); // Obtém os dados do formulário
-            $.ajax({
-                url: 'update_empresa.php',
-                type: 'post',
-                data: formData,
-                success: function(response) {
-                    // Exibe a mensagem de sucesso na página
-                    alert(response);
-                    // Fechar o modal após o sucesso
-                    $('#editEmpresaModal').modal('hide');
-                    // Atualizar a página ou fazer outras ações conforme necessário
-                },
-                error: function(xhr, status, error) {
-                    // Se ocorrer um erro durante a requisição AJAX, exibe mensagem de erro
-                    alert("Erro na requisição AJAX: " + error);
-                }
-            });
-        });
-    </script>
 </body>
 </html>
 <?php
