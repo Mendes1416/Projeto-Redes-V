@@ -1,7 +1,7 @@
 <?php
 // Incluir o arquivo de conexão com o banco de dados
 require(__DIR__ . '/inc/header.php');
-require(__DIR__.'/inc/Navar.php');
+require(__DIR__ . '/inc/Navar.php');
 
 // Verifica se o usuário está logado
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
@@ -44,7 +44,8 @@ try {
                             </div>
                             <div class="form-group">
                                 <label for="tipo_de_oferta">Tipo de Oferta:</label>
-                                <select name="tipo_de_oferta" class="form-control" required>
+                                <select name="tipo_de_oferta" class="form-control" required>~
+                                    <option value="Selecione o tipo de oferta ">Tipo de oferta </option>
                                     <option value="Full-Time">Full-Time</option>
                                     <option value="Part-Time">Part-Time</option>
                                     <option value="Estágio">Estágio</option>
@@ -70,6 +71,17 @@ try {
                                 <label for="curso">Curso:</label>
                                 <select name="curso" class="form-control" required>
                                     <option value="">Selecione o curso...</option>
+                                    <option value="Administrativo">Administrativo</option>
+                                    <option value="Ação Educativa">Ação Educativa</option>
+                                    <option value="Auxiliar de Saúde">Auxiliar de Saúde</option>
+                                    <option value="Desporto">Desporto</option>
+                                    <option value="Eletrónica, Automação e Comando">Eletrónica, Automação e Comando</option>
+                                    <option value="Gestão">Gestão</option>
+                                    <option value="Gestão e Programação de Sistemas Informáticos">Gestão e Programação de Sistemas Informáticos</option>
+                                    <option value="Manutenção Industrial de Metalurgia e Metalomecânica">Manutenção Industrial de Metalurgia e Metalomecânica</option>
+                                    <option value="Mecatrónica Automóvel">Mecatrónica Automóvel</option>
+                                    <option value="Multimédia">Multimédia</option>
+                                    <option value="Turismo Ambiental e Rural">Turismo Ambiental e Rural</option>
                                     <?php
                                     // Loop através dos cursos e criar uma opção para cada um
                                     foreach ($cursos as $curso) {
@@ -88,5 +100,5 @@ try {
             </div>
         </div>
     </div>
-    <?php require(__DIR__ . '/inc/footer.php'); ?>
+
 </body>

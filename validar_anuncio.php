@@ -55,6 +55,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Fecha a conexão com o banco de dados
     $conn = null;
 }
-
-require(__DIR__ . '/inc/footer.php');
 ?>

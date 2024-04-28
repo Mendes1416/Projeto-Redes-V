@@ -95,14 +95,14 @@ try {
                 <div class="dropdown">
 
                     <?php
-                    
+
                     if (empty($_SESSION["photo"])) $photo = "";
                     else $photo = 'uploads/' . $_SESSION["photo"];
                     if ($entrou === false) {
                         echo '<a href="login.php"><i class="fas fa-sign-in-alt"></i>Login</a>';
                     } else {
-            
-                        echo ' <img src="' . $photo . '" width="60" height="38"></a>';
+
+                        echo ' <img src="' . $photo . '" width="50" height="50"></a>';
                     }
                     ?>
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -110,6 +110,7 @@ try {
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="loginDropdown">
+                        <?php echo ' <img src="' . $photo . '" width="50" height="50"></a>'; ?>
                         <a class="dropdown-item" href="<?= $_SESSION['empresa'] ? 'perfilEmpresa.php' : 'perfil.php' ?>">Perfil</a>
                         <a class="dropdown-item" href="Favoritos.php"> Favoritos</a>
                         <a class="dropdown-item" href="logout.php">Sair</a>
@@ -184,6 +185,8 @@ try {
         </table>
     </div>
 </div>
+
+
 
 <?php
 require __DIR__ . '/inc/footer.php';
