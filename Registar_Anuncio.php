@@ -1,4 +1,5 @@
 <?php
+// Incluir o arquivo de conexão com o banco de dados
 require(__DIR__ . '/inc/header.php');
 require(__DIR__.'/inc/Navar.php');
 
@@ -8,53 +9,34 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     header("Location: LoginEmpresa.php");
     exit();
 }
-?>
 
+// Conexão com o banco de dados (substitua as credenciais conforme necessário)
+$servername = "localhost";
+$username = "root";
+$password = '';
+$dbname = "SITE";
 
-<?php
-// Verificar se o formulário foi submetido
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Conexão com o banco de dados (substitua as credenciais conforme necessário)
-    $servername = "localhost";
-    $username = "root";
-    $password = '';
-    $dbname = "SITE";
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // Configurar o PDO para lançar exceções em caso de erro
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        // Configurar o PDO para lançar exceções em caso de erro
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        // Preparar a declaração de inserção
-        $stmt = $conn->prepare("INSERT INTO anuncios (codigo, tipo_de_oferta, carreira, organismo, data_limite, descricao) VALUES (:codigo, :tipo_de_oferta, :carreira, :organismo, :data_limite, :descricao)");
-
-        // Ligação dos parâmetros da declaração de inserção
-        $stmt->bindParam(':codigo', $_POST['codigo']);
-        $stmt->bindParam(':tipo_de_oferta', $_POST['tipo_de_oferta']);
-        $stmt->bindParam(':carreira', $_POST['carreira']);
-        $stmt->bindParam(':organismo', $_POST['organismo']);
-        $stmt->bindParam(':data_limite', $_POST['data_limite']);
-        $stmt->bindParam(':descricao', $_POST['descricao']);
-
-        // Executar a declaração
-        $stmt->execute();
-
-        echo "Anúncio inserido com sucesso!";
-    } catch (PDOException $e) {
-        echo "Erro na inserção do anúncio: " . $e->getMessage();
-    }
-
-    // Fechar a conexão
-    $conn = null;
+    // Consulta para recuperar os cursos do banco de dados
+    $stmt = $conn->prepare("SELECT id, nome FROM cursos");
+    $stmt->execute();
+    $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    echo "Erro na conexão com o banco de dados: " . $e->getMessage();
 }
 ?>
+
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center">Registo do Anúncio</h2>
+                        <h2 class="text-center">Registro do Anúncio</h2>
                         <form action="validar_anuncio.php" method="post" id="form-anuncio">
                             <div class="form-group">
                                 <label for="codigo">Código:</label>
@@ -63,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <div class="form-group">
                                 <label for="tipo_de_oferta">Tipo de Oferta:</label>
                                 <select name="tipo_de_oferta" class="form-control" required>
-                                    <option value ="Seleciona o Tipo de oferta">Seleciona a opção...</option>
                                     <option value="Full-Time">Full-Time</option>
                                     <option value="Part-Time">Part-Time</option>
                                     <option value="Estágio">Estágio</option>
@@ -85,9 +66,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <label for="descricao">Descrição:</label>
                                 <textarea name="descricao" class="form-control" required></textarea>
                             </div>
+                            <div class="form-group">
+                                <label for="curso">Curso:</label>
+                                <select name="curso" class="form-control" required>
+                                    <option value="">Selecione o curso...</option>
+                                    <?php
+                                    // Loop através dos cursos e criar uma opção para cada um
+                                    foreach ($cursos as $curso) {
+                                        echo "<option value='" . $curso['id'] . "'>" . $curso['nome'] . "</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
                             <br>
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-primary">Registar Anúncio</button>
+                                <button type="submit" class="btn btn-primary">Registrar Anúncio</button>
                             </div>
                         </form>
                     </div>
@@ -96,6 +89,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <?php require(__DIR__ . '/inc/footer.php'); ?>
-    
-</body>
 </body>

@@ -4,7 +4,7 @@ require_once "../config.php";
 
 
 // Verificando se o usuário já está logado
-if (isset($_SESSION['nome'])) {
+if (isset($_SESSION['username'])) {
     header("Location: dashboard.php");
     exit();
 }

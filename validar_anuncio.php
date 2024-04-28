@@ -30,10 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $organismo = $_POST["organismo"];
         $data_limite = $_POST["data_limite"];
         $descricao = $_POST["descricao"];
+        $curso_id = $_POST["curso"];
 
         // Prepara a consulta para inserir os dados na tabela de anúncios
-        $stmt = $conn->prepare("INSERT INTO anuncios (codigo, tipo_de_oferta, carreira, organismo, data_limite, Descricao)
-        VALUES (:codigo, :tipo_de_oferta, :carreira, :organismo, :data_limite, :descricao)");
+        $stmt = $conn->prepare("INSERT INTO anuncios (codigo, tipo_de_oferta, carreira, organismo, data_limite, descricao, curso_id)
+        VALUES (:codigo, :tipo_de_oferta, :carreira, :organismo, :data_limite, :descricao, :curso_id)");
 
         // Executa a consulta
         $stmt->execute([
@@ -42,7 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':carreira' => $carreira,
             ':organismo' => $organismo,
             ':data_limite' => $data_limite,
-            ':descricao' => $descricao
+            ':descricao' => $descricao,
+            ':curso_id' => $curso_id
         ]);
 
         echo "Anúncio adicionado com sucesso.";
