@@ -170,7 +170,7 @@ try {
                             echo '<td><a class="link-light"  href="detalhes_anuncio.php?id=' . $row['id'] . '">' . $row['tipo_de_oferta'] . '</a></td>';
                             echo '<td>' . $row['carreira'] . '</td>';
                             echo '<td>' . $row['organismo'] . '</td>';
-                            echo '<td>' . $row['data_limite'] . '</td>';
+                            echo '<td>' . date('d/m/Y', strtotime($row['data_limite'])) . '</td>';
                             echo '</tr>';
                         }
                     } else {

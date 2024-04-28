@@ -3,21 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enviar Erro</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Formulário de Contato</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Reportar Erro</h1>
-        <form id="errorForm" method="post" action="sendError.php">
-            <label for="email">Seu Email:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="error">Descreva o Erro:</label>
-            <textarea id="error" name="error" required></textarea>
-            
-            <button type="submit">Enviar</button>
-        </form>
-    </div>
+    <h2>Entre em Contato</h2>
+    <form action="enviar_email.php" method="post">
+        <label for="nome">Nome:</label><br>
+        <input type="text" id="nome" name="nome" required><br>
+        <label for="email">E-mail:</label><br>
+        <input type="email" id="email" name="email" required><br>
+        <label for="mensagem">Mensagem:</label><br>
+        <textarea id="mensagem" name="mensagem" required></textarea><br><br>
+        <input type="submit" value="Enviar">
+    </form>
 </body>
 </html>

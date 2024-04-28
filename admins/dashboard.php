@@ -9,7 +9,8 @@ if (!isset($_SESSION['username'])) {
 }
 
 // Função para Apagar Utilizador
-function deleteUtilizador($id) {
+function deleteUtilizador($id)
+{
     // Conexão com o banco de dados
     $servername = "localhost";
     $username = "root";
@@ -36,7 +37,8 @@ function deleteUtilizador($id) {
 }
 
 // Função para Apagar empresa
-function deleteEmpresa($NIF) {
+function deleteEmpresa($NIF)
+{
     // Conexão com o banco de dados
     $servername = "localhost";
     $username = "root";
@@ -63,7 +65,8 @@ function deleteEmpresa($NIF) {
 }
 
 // Função para Apagar anúncio
-function deleteAnuncio($id) {
+function deleteAnuncio($id)
+{
     // Conexão com o banco de dados
     $servername = "localhost";
     $username = "root";
@@ -80,7 +83,7 @@ function deleteAnuncio($id) {
     $sql = "DELETE FROM anuncios WHERE id = $id";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Anúncio excluído com sucesso.";
+        echo "Anúncio Apagado com sucesso.";
     } else {
         echo "Erro ao Apagar anúncio: " . $conn->error;
     }
@@ -90,17 +93,17 @@ function deleteAnuncio($id) {
 }
 
 // Se o formulário de exclusão de usuário foi submetido
-if(isset($_POST['deleteUtilizador'])) {
+if (isset($_POST['deleteUtilizador'])) {
     deleteUtilizador($_POST['id']);
 }
 
 // Se o formulário de exclusão de empresa foi submetido
-if(isset($_POST['deleteEmpresa'])) {
+if (isset($_POST['deleteEmpresa'])) {
     deleteEmpresa($_POST['NIF']);
 }
 
 // Se o formulário de exclusão de anúncio foi submetido
-if(isset($_POST['deleteAnuncio'])) {
+if (isset($_POST['deleteAnuncio'])) {
     deleteAnuncio($_POST['id']);
 }
 ?>
@@ -116,7 +119,6 @@ if(isset($_POST['deleteAnuncio'])) {
     <!-- Adicionando Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
@@ -130,6 +132,7 @@ if(isset($_POST['deleteAnuncio'])) {
                         <a class="nav-link" href="#">Contas</a>
                     </li>
                     <a class="nav-link" href="../index.php">Home</a>
+                    </a>
                 </ul>
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
@@ -139,7 +142,6 @@ if(isset($_POST['deleteAnuncio'])) {
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="../logout.php">Logout</a>
                         </div>
-
                     </li>
                 </ul>
             </div>
