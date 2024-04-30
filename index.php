@@ -110,7 +110,6 @@ try {
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="loginDropdown">
-                        <?php echo ' <img src="' . $photo . '" width="50" height="50"></a>'; ?>
                         <a class="dropdown-item" href="<?= $_SESSION['empresa'] ? 'perfilEmpresa.php' : 'perfil.php' ?>">Perfil</a>
                         <a class="dropdown-item" href="Favoritos.php"> Favoritos</a>
                         <a class="dropdown-item" href="logout.php">Sair</a>

@@ -47,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "UPDATE users SET password = :password WHERE username = :username";
 
         if ($stmt = $pdo->prepare($sql)) {
+            $pdo=connect_db();
             // Vincule as variáveis à instrução preparada como parâmetros
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
