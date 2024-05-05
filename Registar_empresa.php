@@ -84,5 +84,4 @@ require(__DIR__ . '/inc/Navar.php');
             </div>
         </div>
     </div>
-    
 </body>

@@ -55,7 +55,7 @@ function deleteEmpresa($NIF)
     $sql = "DELETE FROM empresa WHERE NIF = $NIF";
 
     if ($conn->query($sql) === TRUE) {
-        echo "Empresa excluída com sucesso.";
+        echo "Empresa Apagada  com sucesso.";
     } else {
         echo "Erro ao Apagar empresa: " . $conn->error;
     }
@@ -100,11 +100,6 @@ if (isset($_POST['deleteUtilizador'])) {
 // Se o formulário de exclusão de empresa foi submetido
 if (isset($_POST['deleteEmpresa'])) {
     deleteEmpresa($_POST['NIF']);
-}
-
-// Se o formulário de exclusão de anúncio foi submetido
-if (isset($_POST['deleteAnuncio'])) {
-    deleteAnuncio($_POST['id']);
 }
 ?>
 
@@ -177,7 +172,7 @@ if (isset($_POST['deleteAnuncio'])) {
                                 }
 
                                 // Consulta para obter contas de usuários
-                                $sql_utilizador = "SELECT * FROM users";
+                                $sql_utilizador = "SELECT * FROM Alunos";
                                 $result_utilizador = $conn->query($sql_utilizador);
 
                                 if ($result_utilizador->num_rows > 0) {
@@ -287,7 +282,6 @@ if (isset($_POST['deleteAnuncio'])) {
                                     <th>Data Limite</th>
                                     <th>Descrição</th>
                                     <th>curso</th>
-                                    <th>Ações</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -318,13 +312,7 @@ if (isset($_POST['deleteAnuncio'])) {
                                         echo "<td>" . $row["data_limite"] . "</td>";
                                         echo "<td>" . $row["Descricao"] . "</td>";
                                         echo "<td>" . $row["curso_id"] . "</td>";
-                                        echo "<td>
-                                                <form method='post'>
-                                                    <input type='hidden' name='id' value='" . $row["id"] . "'>
-                                                    <button type='submit' class='btn btn-danger' name='deleteAnuncio'>Apagar</button>
-                                                </form>
-                                              </td>";
-                                        echo "</tr>";
+                                         
                                     }
                                 } else {
                                     echo "<tr><td colspan='9'>Nenhum anúncio inserido encontrado</td></tr>";

@@ -1,5 +1,4 @@
 <?php
-// Incluir o arquivo de conexão com o banco de dados
 require(__DIR__ . '/inc/header.php');
 require(__DIR__ . '/inc/Navar.php');
 
@@ -10,23 +9,51 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
     exit();
 }
 
-// Conexão com o banco de dados (substitua as credenciais conforme necessário)
-$servername = "localhost";
-$username = "root";
-$password = '';
-$dbname = "SITE";
 
-try {
-    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-    // Configurar o PDO para lançar exceções em caso de erro
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+// Processa o formulário para adicionar anúncio
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Conecta ao banco de dados (substitua pelos seus detalhes de conexão)
+    $servername = "localhost";
+    $username = "root";
+    $password = '';
+    $dbname = "SITE";
 
-    // Consulta para recuperar os cursos do banco de dados
-    $stmt = $conn->prepare("SELECT id, nome FROM cursos");
-    $stmt->execute();
-    $cursos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
-    echo "Erro na conexão com o banco de dados: " . $e->getMessage();
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // Defina o modo de erro do PDO como exceção
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Obtém os dados do formulário
+        $codigo = $_POST['codigo'];
+        $tipo_de_oferta = $_POST['tipo_de_oferta'];
+        $carreira = $_POST["carreira"];
+        $organismo = $_POST["organismo"];
+        $data_limite = $_POST["data_limite"];
+        $descricao = $_POST["descricao"];
+        $curso_id = $_POST["curso"]; // Novo campo
+
+        // Prepara a consulta para inserir os dados na tabela de anúncios
+        $stmt = $conn->prepare("INSERT INTO anuncios (codigo, tipo_de_oferta, carreira, organismo, data_limite, descricao, curso_id)
+        VALUES (:codigo, :tipo_de_oferta, :carreira, :organismo, :data_limite, :descricao, :curso_id)");
+
+        // Executa a consulta
+        $stmt->execute([
+            ':codigo' => $codigo,
+            ':tipo_de_oferta' => $tipo_de_oferta,
+            ':carreira' => $carreira,
+            ':organismo' => $organismo,
+            ':data_limite' => $data_limite,
+            ':descricao' => $descricao,
+            ':curso_id' => $curso_id // Novo campo
+        ]);
+
+        echo "Anúncio adicionado com sucesso.";
+    } catch (PDOException $e) {
+        echo "Erro ao adicionar anúncio: " . $e->getMessage();
+    }
+
+    // Fecha a conexão com o banco de dados
+    $conn = null;
 }
 ?>
 
@@ -36,16 +63,16 @@ try {
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="text-center">Registro do Anúncio</h2>
-                        <form action="validar_anuncio.php" method="post" id="form-anuncio">
+                        <h2 class="text-center">Registo do Anúncio</h2>
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="form-anuncio">
                             <div class="form-group">
                                 <label for="codigo">Código:</label>
                                 <input type="text" name="codigo" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="tipo_de_oferta">Tipo de Oferta:</label>
-                                <select name="tipo_de_oferta" class="form-control" required>~
-                                    <option value="Selecione o tipo de oferta ">Tipo de oferta </option>
+                                <select name="tipo_de_oferta" class="form-control" required>
+                                    <option value="Selecione o tipo de oferta">Tipo de oferta</option>
                                     <option value="Full-Time">Full-Time</option>
                                     <option value="Part-Time">Part-Time</option>
                                     <option value="Estágio">Estágio</option>
@@ -70,7 +97,8 @@ try {
                             <div class="form-group">
                                 <label for="curso">Curso:</label>
                                 <select name="curso" class="form-control" required>
-                                    <option value="">Selecione o curso...</option>
+                                    <!-- Aqui você pode carregar os cursos do banco de dados -->
+                                    <option value="" disabled selected>Selecione o Curso</option>
                                     <option value="Administrativo">Administrativo</option>
                                     <option value="Ação Educativa">Ação Educativa</option>
                                     <option value="Auxiliar de Saúde">Auxiliar de Saúde</option>
@@ -82,12 +110,6 @@ try {
                                     <option value="Mecatrónica Automóvel">Mecatrónica Automóvel</option>
                                     <option value="Multimédia">Multimédia</option>
                                     <option value="Turismo Ambiental e Rural">Turismo Ambiental e Rural</option>
-                                    <?php
-                                    // Loop através dos cursos e criar uma opção para cada um
-                                    foreach ($cursos as $curso) {
-                                        echo "<option value='" . $curso['id'] . "'>" . $curso['nome'] . "</option>";
-                                    }
-                                    ?>
                                 </select>
                             </div>
                             <br>
@@ -100,5 +122,4 @@ try {
             </div>
         </div>
     </div>
-
 </body>

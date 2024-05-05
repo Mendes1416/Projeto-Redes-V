@@ -29,7 +29,9 @@ try {
     $descricao = $_POST['descricao'];
     $tipo = $_POST['tipo'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-       $validada = $_POST['validada'];
+    $validada = $_POST['validada'];
+
+     
 
     // Prepara a consulta para inserir os dados na tabela empresas
     $stmt = $conn->prepare("INSERT INTO empresa (NIF, CAE, nome, Email, Morada, Cod_postal, Localidade, Descricao, Tipo, Password, Validada) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");

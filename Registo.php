@@ -152,7 +152,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="card">
                     <div class="card-body">
                         <img src="img/Login.jpg" class="img-fluid mx-auto d-block mb-3" alt="Imagem de Login" style="width: 40%;">
-
                         <h2 class="text-center">Registo</h2>
                         <p class="text-center">Preencha este formulário para criar a sua conta.</p>
                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">

@@ -7,4 +7,6 @@
     <link rel="icon" type="image/x-icon" href="img/icon.jpg">
     <title><?php if(empty($title)) echo ""; else echo $title; ?></title>
     <link rel="stylesheet" href="css/bootstrap.min.css">
-</head>
+     
+
+</html>

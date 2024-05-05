@@ -27,7 +27,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($username_err) && empty($password_err)) {
-        $sql = "SELECT id, username, password, photo FROM users WHERE username = :username OR email = :email";
+        $sql = "SELECT id, username, password, photo FROM Alunos WHERE username = :username OR email = :email";
         $pdo = connect_db();
         if ($stmt = $pdo->prepare($sql)) {
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);

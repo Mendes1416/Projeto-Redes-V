@@ -46,8 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Prepare uma declaração de atualização
         $sql = "UPDATE users SET password = :password WHERE username = :username";
 
+        // Inicializar a conexão PDO
+        $pdo = connect_db();
+
         if ($stmt = $pdo->prepare($sql)) {
-            $pdo=connect_db();
             // Vincule as variáveis à instrução preparada como parâmetros
             $stmt->bindParam(":password", $param_password, PDO::PARAM_STR);
             $stmt->bindParam(":username", $param_username, PDO::PARAM_STR);
@@ -68,10 +70,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Fechar declaração
             unset($stmt);
         }
+        // Fechar conexão
+        unset($pdo);
     }
-
-    // Fechar conexão
-    unset($pdo);
 }
 ?>
 
