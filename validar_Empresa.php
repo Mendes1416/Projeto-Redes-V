@@ -1,4 +1,5 @@
 <?php
+require(__DIR__ . '/inc/Navar.php');    
 // Conexão com o banco de dados (substitua pelos seus detalhes de conexão)
 $servername = "localhost";
 $username = "root";

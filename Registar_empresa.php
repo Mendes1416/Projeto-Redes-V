@@ -1,6 +1,6 @@
 <?php
 require(__DIR__ . '/inc/header.php');
-require(__DIR__ . '/inc/Navar.php');
+require(__DIR__ . '/inc/Navar.php');    
 ?>
 
 <body>
